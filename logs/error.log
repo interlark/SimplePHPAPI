@@ -1,0 +1,16 @@
+[Mon Jul 18 10:35:37.086999 2016] [authz_core:error] [pid 9713] [client 127.0.0.1:36076] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/
+[Mon Jul 18 10:35:38.748130 2016] [authz_core:error] [pid 9713] [client 127.0.0.1:36076] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/
+[Mon Jul 18 10:35:39.611847 2016] [authz_core:error] [pid 9713] [client 127.0.0.1:36076] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/
+[Mon Jul 18 10:35:40.379176 2016] [authz_core:error] [pid 9713] [client 127.0.0.1:36076] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/
+[Mon Jul 18 10:35:41.303082 2016] [authz_core:error] [pid 9713] [client 127.0.0.1:36076] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/
+[Mon Jul 18 10:35:46.901482 2016] [authz_core:error] [pid 9714] [client 127.0.0.1:36084] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/index.php
+[Mon Jul 18 10:35:59.996020 2016] [authz_core:error] [pid 9715] [client 127.0.0.1:36086] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/index
+[Mon Jul 18 10:40:13.133756 2016] [authz_core:error] [pid 10027] [client 127.0.0.1:36100] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/index.php
+[Mon Jul 18 10:40:17.389683 2016] [authz_core:error] [pid 10027] [client 127.0.0.1:36100] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/index.php
+[Mon Jul 18 10:40:28.675528 2016] [authz_core:error] [pid 10028] [client 127.0.0.1:36104] AH01630: client denied by server configuration: /home/interlark/www/xsolla.local/public/
+[Mon Jul 18 11:04:15.101253 2016] [core:info] [pid 10658] [client 127.0.0.1:36350] AH00128: File does not exist: /home/interlark/www/xsolla.local/public/favicon.ico, referer: http://xsolla.local/
+[Mon Jul 18 11:27:03.960086 2016] [core:info] [pid 2215] [client 127.0.0.1:44694] AH00128: File does not exist: /home/interlark/www/xsolla.local/public/favicon.ico
+[Mon Jul 18 11:27:04.005616 2016] [core:info] [pid 2215] [client 127.0.0.1:44694] AH00128: File does not exist: /home/interlark/www/xsolla.local/public/favicon.ico
+[Mon Jul 18 11:28:41.407379 2016] [core:info] [pid 2217] [client 127.0.0.1:44712] AH00128: File does not exist: /home/interlark/www/xsolla.local/public/favicon.ico, referer: http://xsolla.local/
+[Wed Jul 20 14:56:47.826502 2016] [core:info] [pid 27808] [client 127.0.0.1:33560] AH00128: File does not exist: /home/interlark/www/xsolla.local/public/favicon.ico, referer: http://xsolla.local/
+[Wed Jul 20 14:59:00.432374 2016] [core:info] [pid 27809] [client 127.0.0.1:33586] AH00128: File does not exist: /home/interlark/www/xsolla.local/public/favicon.ico

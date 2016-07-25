@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Test Api">
+<meta name="author" content="Andy Trofimov">
+<style type="text/css">
+    .info {
+        margin: 20px 0px 20px 0px;
+    }
+    .request {
+        margin: 20px 0px 20px 0px;
+        border: 2px solid black;
+        background: #b0e49f;
+    }
+    .response_ok {
+        margin: 20px 0px 20px 0px;
+        border: 2px solid black;
+        background: #b0e49f;
+    }
+    .response_err{
+        margin: 20px 0px 20px 0px;
+        border: 2px solid black;
+        background: #e1a7a7;
+    }
+    .method {
+        margin: 20px 0px 20px 0px;
+    }
+</style>
+<title>Text Xsolla Rest API</title>
+</head>
+
+<body>
+    <h3>Test Xsolla Rest API</h3>
+    
+    <div class="info">
+        Using username = <b>{{ username }}</b> and password = <b>{{ password }}</b>
+    </div>
+    
+    <div class="method">
+        Testing method <b>Register User</b> <i>(GET xsolla.local/register?name={{ username }}&amp;pass={{ password }} HTTP/1.1)</i>
+    </div>
+    
+    <div class="request">
+        <b>Request headers:</b><br>
+        accept: application/json<br>
+        accept-language: en-US,en;q=0.8<br>
+        accept-encoding: gzip, deflate<br>
+        user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36
+    </div>
+    
+    <div class={% if register_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>Response headers:</b><br>
+    {{ register_response_headers|raw }}
+    </div>
+    
+    <div class={% if register_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>JSON output (decompressed if it was with zlib):</b><br>
+    {{ register_json }}
+    </div>
+    
+    {% if register_code == 200 %}
+    <!-- got registred succesfully -->
+    <div class="info">
+        Using apikey = <b>{{ register_apikey }}</b>
+    </div>
+    
+    <hr>
+    
+    <div class="info">
+        Testing method <b>Upload file</b> with compression (file THE_CATCHER_IN_THE_RYE.txt) <i>(POST xsolla.local/upload HTTP/1.1)</i>
+    </div>
+    
+    <div class="request">
+        <b>Request headers:</b><br>
+        accept: application/json<br>
+        accept-language: en-US,en;q=0.8<br>
+        accept-encoding: gzip, deflate<br>
+        user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36<br>
+        Authentication: {{ register_apikey }}<br>
+        compress: true<br>
+        Expect:<br>
+        Content-Type: multipart/form-data<br>
+        ... file content ...
+    </div>
+    
+    <div class={% if upload1_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>Response headers:</b><br>
+    {{ upload1_response_headers|raw }}
+    </div>
+    
+    <div class={% if upload1_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>JSON output (decompressed if it was with zlib):</b><br>
+    {{ upload1_json }}
+    </div>
+    
+    <hr>
+    
+    <div class="info">
+        Testing method <b>Upload file</b> without compression (file art.png) <i>(POST xsolla.local/upload HTTP/1.1)</i>
+    </div>
+    
+    <div class="request">
+        <b>Request headers:</b><br>
+        accept: application/json<br>
+        accept-language: en-US,en;q=0.8<br>
+        accept-encoding: gzip, deflate<br>
+        user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36<br>
+        Authentication: {{ register_apikey }}<br>
+        Expect:<br>
+        Content-Type: multipart/form-data<br>
+        ... file content ...
+    </div>
+    
+    <div class={% if upload2_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>Response headers:</b><br>
+    {{ upload2_response_headers|raw }}
+    </div>
+    
+    <div class={% if upload2_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>JSON output (decompressed if it was with zlib):</b><br>
+    {{ upload2_json }}
+    </div>
+    
+    {% if upload1_code == 200 %}
+    <hr>
+    
+    <div class="info">
+        Testing method <b>Update file</b> (file THE_CATCHER_IN_THE_RYE.txt.gz) <i>(POST xsolla.local/update HTTP/1.1)</i>
+    </div>
+    
+
+    <div class="request">
+        <b>Request headers:</b><br>
+        accept: application/json<br>
+        accept-language: en-US,en;q=0.8<br>
+        accept-encoding: gzip, deflate<br>
+        user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36<br>
+        Authentication: {{ register_apikey }}<br>
+        Expect:<br>
+        Content-Type: multipart/form-data<br>
+        ... file content ...
+    </div>
+    
+    <div class={% if update_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>Response headers:</b><br>
+    {{ update_response_headers|raw }}
+    </div>
+    
+    <div class={% if update_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>JSON output (decompressed if it was with zlib):</b><br>
+    {{ update_json }}
+    </div>
+    {% endif %}
+    
+    {% if upload2_code == 200 %}
+    <hr>
+    
+    <div class="info">
+        Testing method <b>Get file</b> (file art.png) <i>(GET xsolla.local/getfile HTTP/1.1)</i>
+    </div>
+    
+    <div class="request">
+        <b>Request headers:</b><br>
+        accept: application/json<br>
+        accept-language: en-US,en;q=0.8<br>
+        accept-encoding: gzip, deflate<br>
+        user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36<br>
+        Authentication: {{ register_apikey }}
+    </div>
+    
+    <div class={% if getfile_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>Response headers:</b><br>
+    {{ getfile_response_headers|raw }}
+    </div>
+    
+    {% if getfile_code == 200 %}
+    <div class="info">
+        <b>art.png :</b>
+    </div>
+    
+    <img style='display:block;' src='{{ getfile_data_base64|raw }}' />
+    {% endif %}
+    {% endif %}
+    
+    <hr>
+    
+    <div class="info">
+        Testing method <b>Get file list</b> <i>(GET xsolla.local/getfilelist HTTP/1.1)</i>
+    </div>
+
+    <div class="request">
+        <b>Request headers:</b><br>
+        accept: application/json<br>
+        accept-language: en-US,en;q=0.8<br>
+        accept-encoding: gzip, deflate<br>
+        user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36<br>
+        Authentication: {{ register_apikey }}<br>
+    </div>
+    
+    <div class={% if getfilelist_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>Response headers:</b><br>
+    {{ getfilelist_response_headers|raw }}
+    </div>
+    
+    <div class={% if getfilelist_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>JSON output (decompressed if it was with zlib):</b><br>
+    {{ getfilelist_json }}
+    </div>
+    
+    <hr>
+    
+    <div class="info">
+        Testing method <b>Get file metadata</b> (file art.png) <i>(GET xsolla.local/getfilemetadata?filename=art.png HTTP/1.1)</i>
+    </div>
+    
+    <div class="request">
+    <b>Request headers:</b><br>
+    accept: application/json<br>
+    accept-language: en-US,en;q=0.8<br>
+    accept-encoding: gzip, deflate<br>
+    user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36<br>
+    Authentication: {{ register_apikey }}<br>
+    </div>
+        
+    <div class={% if metadata_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>Response headers:</b><br>
+    {{ metadata_response_headers|raw }}
+    </div>
+    
+    <div class={% if metadata_code == 200 %}"response_ok"{% else %}"response_err"{% endif %}>
+    <b>JSON output (decompressed if it was with zlib):</b><br>
+    {{ metadata_json }}
+    </div>
+    
+    {% endif %}
+</body>
+</html>
+
+
+
+
