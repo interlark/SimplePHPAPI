@@ -172,7 +172,7 @@ To use view with twig template, composer got next requirement:
 ### Version
 1.0.0
 ### Tech
-To realise the API I used slim php framework, larvel's eloquent orm, slim twig,
+To realise the API I used slim php framework, larvel's eloquent orm, slim twig
 
 License
 ----
