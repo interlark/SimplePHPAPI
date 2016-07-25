@@ -20,7 +20,7 @@ Make sure you have installled apache and mysql (or other db), so you can start t
 ```sh
 $ mkdir ~/www/xsolla.local
 $ cd ~/www/sxolla.local
-$ git clone <repo>
+$ git clone https://github.com/interlark/XSollaTestApi
 ```
 
 Folder **files** would be our filestore, so we need to make it accessable for the apache. (For the user ***www-data***) :
