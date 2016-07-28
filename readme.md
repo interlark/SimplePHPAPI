@@ -152,7 +152,7 @@ Method returns file from the datastore.
 
 Method returns list of all available files in the datastore.
 
-- Get file metadata (GET xsolla.local/getfilemetadata?filename=<filename> HTTP/1.1)
+- Get file metadata (GET xsolla.local/getfilemetadata?filename=\<filename\> HTTP/1.1)
 
 Method returns metadata of the file.
 
