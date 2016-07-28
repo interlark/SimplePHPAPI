@@ -132,7 +132,7 @@ Connection to your database you can set up in /app/init.pgp file:
 For more information please visit official [documentation][eloquendt-db].
 ### API Methods
 
-- Registration (POST xsolla.local/register?name=<username>&pass=<password> HTTP/1.1)
+- Registration (POST xsolla.local/register?name=\<username\>&pass=\<password\> HTTP/1.1)
 
 If the registration would be successful, method returns apikey. With this apikey you can work with other methods, just add the header ```Authentication: <apikey>```.
 
@@ -144,7 +144,7 @@ This method can upload your file in the datastore, the file can even be compress
 
 Method updates file from the datastore with the file from the post header. But make sure that you are the owner of the file, otherwise you'd get access error.
 
-- Get file (GET xsolla.local/getfile?filename=<filename> HTTP/1.1)
+- Get file (GET xsolla.local/getfile?filename=\<filename\> HTTP/1.1)
 
 Method returns file from the datastore.
 
@@ -159,7 +159,7 @@ Method returns metadata of the file.
 ### Test
 And actually there is one more method that test the API:
 
-- Test API (GET xsolla.local/testapi?username=<username>&password=<password> HTTP/1.1)
+- Test API (GET xsolla.local/testapi?username=\<username\>&password=\<password\> HTTP/1.1)
 
 Method register new user with the name and password and using it test all methids. The output is html file with all details. (Saved one you can find in /test_api/dump).
 
