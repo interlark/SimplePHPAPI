@@ -116,7 +116,7 @@ sudo service apache2 restart
 ```
 
 ### Configuration
-Connection to your database you can set up in /app/init.pgp file:
+Connection to your database you can set up in /app/init.php file:
 ```
 [
     'driver' => 'mysql',
