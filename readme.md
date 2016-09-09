@@ -15,7 +15,7 @@ For the implementation I used [Slim 3][slim3] to easely make routs and methods f
 
 ### Installation
 
-Make sure you have installled apache and mysql (or other db), so you can start these cervices right now if they were stopped. Go, for example, to your home directory and copy the project.
+Make sure you have installled apache and mysql (or other dbms), so you can start these cervices right now if they were stopped. Go, for example, to your home directory and copy the project.
 
 ```sh
 $ mkdir ~/www/xsolla.local
@@ -28,11 +28,11 @@ Folder **files** would be our filestore, so we need to make it accessable for th
 $ sudo chmod 777 files
 ```
 
-The next step of our installation will be: choosing you database (I suggest MySql), creating new schema ***db_xsolla*** and import the dump I leaved for you - ***"db_xsolla.sql"***. I'm sure you can easely can get this step.
+The next step of our installation will be: choosing you database (I suggest using MySQL DBMS), creating new schema ***db_xsolla*** and import the dump I leaved for you - ***"db_xsolla.sql"***. I'm sure you can easily get this step.
 
 After that you have to configure apache for this project. You know, the API works through HTTPS, and traffic between you and server is compressed. So make sure you enabled ***mod_rewrite***, ***mod_deflate***, ***mod_ssl*** for the server.
 
-First of all, we want user to me comfortably redirected to https protocol, if he tried to use methids via http. Let's configure the http site version first. Create configuration and enable the site.
+First of all, we want user to comfortably redirected to https protocol, if he tried to use methids via http. Let's configure the http site version first. Create configuration and enable the site.
 
 ```sh
 sudo su
@@ -65,7 +65,7 @@ You can just type:
 ```sh
 $ whoami
 ```
-And after we configured this configuratinon let's enable the site on 80 port:
+And after we done this configuratinon let's enable the site on 80 port:
 ```sh
 sudo a2ensite xsolla.conf
 ```
@@ -104,7 +104,7 @@ So now we gonna create configuration for https site - our api. And with mod_rewr
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 ```
 
-Oh yeah, I forgot about ***xsolla_server.pem*** and ***xsolla_server.key***, to install these certification and it's key run a script /ssl/install.sh with root privileges.
+Oh yeah, I forgot about ***xsolla_server.pem*** and ***xsolla_server.key***, to install certification and it's key run the script /ssl/install.sh with root privileges.
 
 Using self-signed certificates, of course, can protect against passive listening and sniffing, but it still does not guarantee customers that it is the real server.
 
