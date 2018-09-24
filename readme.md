@@ -1,6 +1,4 @@
-# XSolla Test Project [API]
-
-If you are not affiliated with the company Xsolla, you can go futher, in the other case, please stop right here and check out the realisation of API you sent me. And by the way, currently I'm using Debian\Linux, so I'd be talking about internal processes according to this distribution.
+# Simple PHP API Project [API]
 
 With this API you use the following methods:
   - Register new user in the system
@@ -18,9 +16,9 @@ For the implementation I used [Slim 3][slim3] to easely make routs and methods f
 Make sure you have installled apache and mysql (or other dbms), so you can start these cervices right now if they were stopped. Go, for example, to your home directory and copy the project.
 
 ```sh
-$ mkdir ~/www/xsolla.local
-$ cd ~/www/sxolla.local
-$ git clone https://github.com/interlark/XSollaTestApi
+$ mkdir ~/www/api.local
+$ cd ~/www/api.local
+$ git clone https://github.com/interlark/SimplePHPAPI
 ```
 
 Folder **files** would be our filestore, so we need to make it accessable for the apache. (For the user ***www-data***) :
@@ -28,7 +26,7 @@ Folder **files** would be our filestore, so we need to make it accessable for th
 $ sudo chmod 777 files
 ```
 
-The next step of our installation will be: choosing you database (I suggest using MySQL DBMS), creating new schema ***db_xsolla*** and import the dump I leaved for you - ***"db_xsolla.sql"***. I'm sure you can easily get this step.
+The next step of our installation will be: choosing you database (I suggest using MySQL DBMS), creating new schema ***db_api_project*** and import the dump I leaved for you - ***"db_api_project.sql"***. I'm sure you can easily get this step.
 
 After that you have to configure apache for this project. You know, the API works through HTTPS, and traffic between you and server is compressed. So make sure you enabled ***mod_rewrite***, ***mod_deflate***, ***mod_ssl*** for the server.
 
@@ -37,19 +35,19 @@ First of all, we want user to comfortably redirected to https protocol, if he tr
 ```sh
 sudo su
 cd /etc/apache2/sites-available
-touch xsolla.conf
+touch api_project.conf
 ```
 ***xsolla.conf***:
 ```
 <VirtualHost *:80>
-	ServerName xsolla.local
+	ServerName api.local
 	ServerAdmin webmaster@localhost
-	ServerAlias www.xsolla.local
-	DocumentRoot /home/<user>/www/xsolla.local/public
+	ServerAlias www.api.local
+	DocumentRoot /home/<user>/www/api.local/public
 	LogLevel info ssl:warn
-	ErrorLog /home/<user>/www/xsolla.local/logs/error.log
-	CustomLog /home/<user>/www/xsolla.local/logs/access.log combined
-	<Directory /home/<user>/www/xsolla.local/public>
+	ErrorLog /home/<user>/www/api.local/logs/error.log
+	CustomLog /home/<user>/www/api.local/logs/access.log combined
+	<Directory /home/<user>/www/api.local/public>
 		Require all granted
 		RewriteEngine On
 		RewriteCond %{HTTPS} off
@@ -60,34 +58,30 @@ touch xsolla.conf
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 ```
 Where <user> should be your username.
-If you forget your home folder (username), too shame on you. Just kidding, never mind.
-You can just type:
-```sh
-$ whoami
-```
+
 And after we done this configuratinon let's enable the site on 80 port:
 ```sh
-sudo a2ensite xsolla.conf
+sudo a2ensite api_project.conf
 ```
 So now we gonna create configuration for https site - our api. And with mod_rewrite enable Slim 3 routs :
 
-***xsolla-ssl.conf***:
+***api_project-ssl.conf***:
 ```
 <IfModule mod_ssl.c>
 	<VirtualHost _default_:443>
-		ServerName xsolla.local
+		ServerName api.local
 		ServerAdmin webmaster@localhost
-		ServerAlias www.xsolla.local
-		DocumentRoot /home/<user>/www/xsolla.local/public_ssl
+		ServerAlias www.api.local
+		DocumentRoot /home/<user>/www/api.local/public_ssl
 		LogLevel info ssl:warn
-		ErrorLog /home/<user>/www/xsolla.local/logs/error_ssl.log
-		CustomLog /home/<user>/www/xsolla.local/logs/access_ssl.log combined
+		ErrorLog /home/<user>/www/api.local/logs/error_ssl.log
+		CustomLog /home/<user>/www/api.local/logs/access_ssl.log combined
 
 		SSLEngine on
-		SSLCertificateFile	/etc/ssl/certs/xsolla_server.pem
-		SSLCertificateKeyFile /etc/ssl/private/xsolla_server.key
+		SSLCertificateFile	/etc/ssl/certs/api_server.pem
+		SSLCertificateKeyFile /etc/ssl/private/api_server.key
 
-		<Directory /home/<user>/www/xsolla.local/public_ssl>
+		<Directory /home/<user>/www/api.local/public_ssl>
     		Require all granted
 			RewriteEngine on
 			RewriteCond %{REQUEST_FILENAME} !-d
@@ -104,14 +98,14 @@ So now we gonna create configuration for https site - our api. And with mod_rewr
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 ```
 
-Oh yeah, I forgot about ***xsolla_server.pem*** and ***xsolla_server.key***, to install certification and it's key run the script /ssl/install.sh with root privileges.
+Oh yeah, I forgot about ***api_server.pem*** and ***api_server.key***, to install certification and it's key run the script /ssl/install.sh with root privileges.
 
 Using self-signed certificates, of course, can protect against passive listening and sniffing, but it still does not guarantee customers that it is the real server.
 
-Well it's time to enable our https site and restart the server, and don't forget to add ```127.0.0.1 xsolla.local``` to your /etc/hosts file.
+Well it's time to enable our https site and restart the server, and don't forget to add ```127.0.0.1 api.local``` to your /etc/hosts file.
 
 ```sh
-sudo a2ensite xsolla-ssl.conf
+sudo a2ensite api_project-ssl.conf
 sudo service apache2 restart
 ```
 
@@ -121,7 +115,7 @@ Connection to your database you can set up in /app/init.php file:
 [
     'driver' => 'mysql',
     'host' => '127.0.0.1',
-    'database' => 'db_xsolla',
+    'database' => 'db_api_project',
     'username' => 'root',
     'password' => 'root',
     'charset' => 'utf8',
@@ -132,34 +126,34 @@ Connection to your database you can set up in /app/init.php file:
 For more information please visit official [documentation][eloquendt-db].
 ### API Methods
 
-- Registration (POST xsolla.local/register?name=\<username\>&pass=\<password\> HTTP/1.1)
+- Registration (POST api.local/register?name=\<username\>&pass=\<password\> HTTP/1.1)
 
-If the registration would be successful, method returns apikey. With this apikey you can work with other methods, just add the header ```Authentication: <apikey>```.
+If the registration would be successful, method returns unsafe constant apikey (to get more security write down a login method to obtain apikey associated with session). With this apikey you can work with other methods, just add the header ```Authentication: <apikey>```.
 
-- Upload a file (POST xsolla.local/upload HTTP/1.1)
+- Upload a file (POST api.local/upload HTTP/1.1)
 
 This method can upload your file in the datastore, the file can even be compressed, all you need us just add the header ```compress: true```.
 
-- Update the file (POST xsolla.local/update HTTP/1.1)
+- Update the file (POST api.local/update HTTP/1.1)
 
 Method updates file from the datastore with the file from the post header. But make sure that you are the owner of the file, otherwise you'd get access error.
 
-- Get file (GET xsolla.local/getfile?filename=\<filename\> HTTP/1.1)
+- Get file (GET api.local/getfile?filename=\<filename\> HTTP/1.1)
 
 Method returns file from the datastore.
 
-- Get file list (GET xsolla.local/getfilelist HTTP/1.1)
+- Get file list (GET api.local/getfilelist HTTP/1.1)
 
 Method returns list of all available files in the datastore.
 
-- Get file metadata (GET xsolla.local/getfilemetadata?filename=\<filename\> HTTP/1.1)
+- Get file metadata (GET api.local/getfilemetadata?filename=\<filename\> HTTP/1.1)
 
 Method returns metadata of the file.
 
 ### Test
 And actually there is one more method that test the API:
 
-- Test API (GET xsolla.local/testapi?username=\<username\>&password=\<password\> HTTP/1.1)
+- Test API (GET api.local/testapi?username=\<username\>&password=\<password\> HTTP/1.1)
 
 Method register new user with the name and password and using it test all methids. The output is html file with all details. (Saved one you can find in /test_api/dump).
 
