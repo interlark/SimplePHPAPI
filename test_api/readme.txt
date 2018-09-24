@@ -1,5 +1,5 @@
-Для запуска теста REST API XSOLLA перейдите по роуту http://xsolla/testapi
-Для конкретизации регистрации пользователя: http://xsolla/testapi?username=<username>&password=<password>
+Для запуска теста REST API перейдите по роуту http://api/testapi
+Для конкретизации регистрации пользователя: http://api/testapi?username=<username>&password=<password>
 Тестовые данные лежат в этой папке.
 Дамп теста от 25.07.16 лежит в папке ./dump
 Если с сервера пришла ошибка - блок данных (response) будет подсвечен красным цветом.
